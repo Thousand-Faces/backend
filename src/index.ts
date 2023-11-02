@@ -1,17 +1,17 @@
-import express, { Express, Request, Response, Application } from 'express';
-import dotenv from 'dotenv';
-const mongoose = require('mongoose');
-const cors = require('cors');
-
+import "reflect-metadata";
+import * as dotenv from "dotenv";
+import { container } from "./inversify.config";
+import { App } from "./app";
+import { connect } from "mongoose";
 const { createAgent } = require('@forestadmin/agent');
 const { createMongooseDataSource } = require('@forestadmin/datasource-mongoose');
+const mongoose = require('mongoose');
 
-//For env File 
+// initialize configuration
 dotenv.config();
 
-const app: Application = express();
-const port = process.env.PORT || 8000;
-
+const PORT = process.env.SERVER_PORT || 3000;
+const application = container.get<App>(App);
 
 // Create your Forest Admin agent
 // This must be called BEFORE all other middleware on the app
@@ -22,43 +22,28 @@ createAgent({
 
 })
   // Create your Mongoose datasource
-  .addDataSource(createMongooseDataSource(mongoose.connection))
+  .addDataSource(createMongooseDataSource(mongoose.connection, { flattenMode: 'none' }))
   // Replace "myExpressApp" by your Express application
-  .mountOnExpress(app)
+  .mountOnExpress(application.app)
   .start();
 
+application.app.listen(PORT, async () => {
+  try {
+      const db = await connect(process.env.DB_URI || '', {
+        keepAlive: true,
+        keepAliveInitialDelay: 300000,
+      })
+      .then(() => {
+        console.log('Connected to MongoDB');
+        // Start your server or perform other actions
+      })
+      .catch((error: any) => {
+        console.error('Error connecting to MongoDB:', error);
+      });
 
-// Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+      // await db.connection.db.dropDatabase();
 
-// CORS
-let allowedOrigins = [/\.forestadmin\.com$/, /localhost:\d{4}$/, process.env.FRONT_URL];
-if (process.env.CORS_ORIGINS) {
-  allowedOrigins = allowedOrigins.concat(process.env.CORS_ORIGINS.split(','));
-}
-const corsConfig = {
-  origin: allowedOrigins,
-  allowedHeaders: ['Forest-Context-Url', 'Authorization', 'X-Requested-With', 'Content-Type'],
-  methods: 'GET, POST, PUT, DELETE',
-  maxAge: 86400, // NOTICE: 1 day
-  credentials: true,
-};
-app.use(cors(corsConfig));
-
-mongoose.connect(process.env.DB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => {
-  console.log('Connected to MongoDB');
-  // Start your server or perform other actions
-})
-.catch((error: any) => {
-  console.error('Error connecting to MongoDB:', error);
-});
-
-// Running the server
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+  } catch (error) {
+    console.error("Could not connect to mongoose!");
+  }
 });

@@ -2,7 +2,8 @@ import { Router } from "express";
 import {
   ProejctController,
 } from "../controllers";
-
+import { injectable } from "inversify";
+@injectable()
 export class ProjectsRouter {
   private readonly _router: Router;
 
@@ -29,6 +30,20 @@ export class ProjectsRouter {
      *         description: Something went wrong, please try again later.
      */
     this._router.get("/:id", this.projectController.getById);
+
+
+    /**
+     * @swagger
+     * /api/projects:
+     *   post:
+     *     description: Create a project
+     *     responses:
+     *       200:
+     *         description: Success
+     *       500:
+     *         description: Something went wrong, please try again later.
+     */
+    this._router.post("/", this.projectController.post);
 
   }
 

@@ -1,5 +1,11 @@
 {
   "compilerOptions": {
+    // "target": "es5",
+      "lib": ["es6", "dom"],
+      "types": ["reflect-metadata"],
+      "moduleResolution": "node",
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
     "outDir": "./dist",
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
