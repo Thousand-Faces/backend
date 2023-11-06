@@ -37,4 +37,9 @@ export class ProjectService {
         return p as IProject;
     }
 
+    public async getAll(): Promise<IProject[]> {
+        const p = await Project.find({});
+        return p as IProject[];
+    }
+
 }

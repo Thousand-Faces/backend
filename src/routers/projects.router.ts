@@ -22,6 +22,19 @@ export class ProjectsRouter {
      * @swagger
      * /api/projects:
      *   get:
+     *     description: Gets all projects
+     *     responses:
+     *       200:
+     *         description: Success
+     *       500:
+     *         description: Something went wrong, please try again later.
+     */
+    this._router.get("/", this.projectController.getAll);
+
+    /**
+     * @swagger
+     * /api/projects/id:
+     *   get:
      *     description: Gets a project
      *     responses:
      *       200:
