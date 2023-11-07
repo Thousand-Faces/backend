@@ -16,22 +16,10 @@ services:
       - NODE_ENV=development
     ports:
       - "3000:3000"
-    depends_on:
-      - tf-db
     deploy:
       restart_policy:
         condition: on-failure
 
-  tf-db:
-    container_name: tf-db
-    image: mongo
-    volumes:
-      - mongodata:/data/db
-    ports:
-      - "27017:27017"
-    deploy:
-      restart_policy:
-        condition: on-failure
 
 volumes:
   mongodata:
