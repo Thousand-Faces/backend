@@ -6,7 +6,6 @@ WORKDIR /app
 
 # Install app dependencies
 COPY package.json ./
-COPY .npmrc ./
 
 # Install libraries
 RUN npm install -g npm@latest
@@ -21,6 +20,6 @@ RUN chown -R 1000:1000 "/root/.npm"
 COPY . .
 
 # Build dist folder
-EXPOSE 4005
+EXPOSE 3000
 CMD ["npm", "run", "start" ]
 
