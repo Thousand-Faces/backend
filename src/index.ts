@@ -6,7 +6,7 @@ import { connect } from "mongoose";
 const { createAgent } = require('@forestadmin/agent');
 const { createMongooseDataSource } = require('@forestadmin/datasource-mongoose');
 const mongoose = require('mongoose');
-
+import 'reflect-metadata';
 // initialize configuration
 dotenv.config();
 

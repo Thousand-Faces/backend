@@ -3,7 +3,7 @@ version: "3.9"
 services:
   tf-api:
     container_name: tf-api
-    image: node
+    image: node:latest
     build:
       context: .
       dockerfile: Dockerfile
@@ -21,5 +21,3 @@ services:
         condition: on-failure
 
 
-volumes:
-  mongodata:
