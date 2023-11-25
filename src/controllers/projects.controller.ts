@@ -42,9 +42,10 @@ export class ProejctController {
       const projectId = await this.projects.create(project);
       return res.status(201).send({ projectId });
     } catch (err) {
+      console.log((err as any).message);
       return res
         .status(500)
-        .send({ error: "Something went wrong, please try again later." });
+        .send({ error: (err as any).message });
     }
   };
 }
