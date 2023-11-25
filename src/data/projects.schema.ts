@@ -5,7 +5,6 @@ export const projectSchema = new Schema<IProject>({
     founderEmail: { type: String, required: true },
     founderName: { type: String, required: true },
     startupName: { type: String, required: true },
-    shortDescription: { type: String, required: true },
     founderTitle: { type: String, required: true },
     linkedIn: { type: String, required: true },
     country: { type: String, required: true },

@@ -3,7 +3,6 @@ export interface IProject {
     founderEmail: string;
     founderName: string;
     startupName: string;
-    shortDescription: string;
     founderTitle: string;
     linkedIn: string;
     country: string;

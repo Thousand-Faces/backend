@@ -10,7 +10,6 @@ export class ProjectService {
         model.founderEmail = project.founderEmail;
         model.founderName = project.founderName;
         model.startupName = project.startupName;
-        model.shortDescription = project.shortDescription;
         model.founderTitle = project.founderTitle;
         model.linkedIn = project.linkedIn;
         model.country = project.country;
