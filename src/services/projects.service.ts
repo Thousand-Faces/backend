@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 import { Project } from "../data/projects.schema";
-import { IProject } from "../types/project.model";
+import { IProject } from "../models/project.model";
 
 @injectable()
 export class ProjectService {

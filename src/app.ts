@@ -2,7 +2,7 @@ import express from "express";
 var bodyParser = require("body-parser");
 import helmet from "helmet";
 import { injectable } from "inversify";
-import { ProjectsRouter } from "./routers";
+import { ProjectsRouter, UserRouter } from "./routers";
 // const rateLimit = require('express-rate-limit');
 // const slowDown = require("express-slow-down");
 const cookieParser = require("cookie-parser");
@@ -43,7 +43,8 @@ export class App {
     private _app: express.Application;
 
     constructor(
-        private projectsRouter: ProjectsRouter
+        private projectsRouter: ProjectsRouter,
+        private userRouter: UserRouter
     ) {
         this._app = express();
         this.config();
@@ -88,6 +89,7 @@ export class App {
 
     private _initRoutes() {
         this._app.use("/api/projects", this.projectsRouter.router);
+        this._app.use("/api/user", this.userRouter.router);
         this._app.use("/api/docs", swaggerUI.serve, swaggerUI.setup(swagger));
     }
 

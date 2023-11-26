@@ -1,5 +1,5 @@
 import { Schema, model, connect } from 'mongoose';
-import { IProject } from '../types/project.model';
+import { IProject } from '../models/project.model';
 
 export const projectSchema = new Schema<IProject>({
     founderEmail: { type: String, required: true },
