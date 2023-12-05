@@ -1,6 +1,7 @@
 import { Response } from "express";
 import { ProjectService } from "../services/projects.service";
 import { injectable } from "inversify";
+import { User } from "../data";
 
 @injectable()
 export class ProejctController {
@@ -46,6 +47,28 @@ export class ProejctController {
       return res
         .status(500)
         .send({ error: (err as any).message });
+    }
+  };
+
+
+  // Process signed message
+  public upvote = async (req: any, res: any) => {
+
+    try {
+      const address = req.user.address;
+      const projectId = req.params.id;
+      console.log('projectId', projectId);
+      const user = await User.findOne({ address: address });
+      if (user) {
+        const upvoteId = await this.projects.upvoteProject(address, projectId);
+        res.status(200).send({ upvoteId });
+      } else {
+        // User is not authenticated
+        res.status(401).send({ error: "Invalid credentials" });
+      }
+    } catch (e: unknown) {
+      console.error(e);
+      res.status(500).send({ error: (e as any)?.message });
     }
   };
 }

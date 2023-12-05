@@ -30,6 +30,12 @@ export class UserRouter {
       passport.authenticate("jwt", { session: false }),
       this.userController.getUser
     );
+
+    this._router.get(
+      "/upvotes",
+      passport.authenticate("jwt", { session: false }),
+      this.userController.getUpvotes
+    )
   }
 
   public get router(): Router {

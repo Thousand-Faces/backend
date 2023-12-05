@@ -3,6 +3,8 @@ import {
   ProejctController,
 } from "../controllers";
 import { injectable } from "inversify";
+import "../passport/passport.config";
+import passport from "passport";
 @injectable()
 export class ProjectsRouter {
   private readonly _router: Router;
@@ -57,6 +59,12 @@ export class ProjectsRouter {
      *         description: Something went wrong, please try again later.
      */
     this._router.post("/", this.projectController.post);
+
+    this._router.post(
+      '/:id/upvote',
+      passport.authenticate("jwt", { session: false }),
+      this.projectController.upvote
+    );
 
   }
 

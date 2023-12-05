@@ -4,7 +4,7 @@ import { injectable } from "inversify";
 import { verifyMessage } from "@ethersproject/wallet";
 import jwt from "jsonwebtoken";
 
-import {User} from "../data/user.schema";
+import { User } from "../data/user.schema";
 const generateNewNonce = () => {
   return `${Math.floor(Math.random() * 1000000).toString()}`;
 };
@@ -80,6 +80,24 @@ export class UserController {
         }
       } else {
         res.status(404).send("User does not exist");
+      }
+    } catch (e) {
+      console.error(e);
+      res.status(500).send("Something went wrong");
+    }
+  };
+
+  // Process signed message
+  public getUpvotes = async (req: any, res: any) => {
+    try {
+      const address = req.user.address;
+      const user = await User.findOne({ address: address });
+      if (user) {
+        const upvotedProjects = await this.projects.getUpvoted(address);
+        res.status(200).send({ projects: upvotedProjects });
+      } else {
+        // User is not authenticated
+        res.status(401).send("Invalid credentials");
       }
     } catch (e) {
       console.error(e);

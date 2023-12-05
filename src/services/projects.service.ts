@@ -1,6 +1,7 @@
 import { injectable } from "inversify";
-import { Project } from "../data/projects.schema";
-import { IProject } from "../models/project.model";
+import { Project, Upvote, User } from "../data";
+import { IProject, IUpvote } from "../models";
+import mongoose from "mongoose";
 
 @injectable()
 export class ProjectService {
@@ -48,6 +49,36 @@ export class ProjectService {
     public async getAll(): Promise<IProject[]> {
         const p = await Project.find({});
         return p as IProject[];
+    }
+
+    // TODO: implement
+    public async getUpvoted(address: string): Promise<IProject[]> {
+        const user = await User.findOne({ address: address });
+        if (!user) throw Error("User not found");
+        const userUpvotes = await Upvote.find({ userAddress: address });
+        const projectIds = userUpvotes.map(x => x.upvotedProjectId);
+        const projects = await Project.find({ '_id': { $in: projectIds } });
+        return projects;
+    }
+
+    public async upvoteProject(address: string, projectId: string): Promise<string> {
+        const user = await User.findOne({ address: address });
+        if (!user) throw Error("User not found");
+        const userUpvotes = await Upvote.find({ userAddress: address });
+        if (userUpvotes.length >= user?.upvotesAllowed) {
+            throw Error("No upvotes left");
+        }
+        if (userUpvotes.findIndex(x => x.upvotedProjectId == projectId) != -1) {
+            throw Error("Already Upvoted");
+        }
+        const project = await Project.findById(projectId);
+        if (!project) throw Error("Invalid Project");
+        const upvote = new Upvote();
+        upvote.userAddress = address;
+        upvote.upvotedProjectId = projectId;
+        await upvote.save();
+        return upvote.id;
+
     }
 
 }
