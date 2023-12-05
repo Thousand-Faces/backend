@@ -88,7 +88,7 @@ export class UserController {
   };
 
   // Process signed message
-  public getUpvotes = async (req: any, res: any) => {
+  public getCurrentUserUpvotes = async (req: any, res: any) => {
     try {
       const address = req.user.address;
       const user = await User.findOne({ address: address });
@@ -98,6 +98,23 @@ export class UserController {
       } else {
         // User is not authenticated
         res.status(401).send("Invalid credentials");
+      }
+    } catch (e) {
+      console.error(e);
+      res.status(500).send("Something went wrong");
+    }
+  };
+  // Process signed message
+  public getUpvotes = async (req: any, res: any) => {
+    try {
+      const address = req.params.address;
+      const user = await User.findOne({ address: address });
+      if (user) {
+        const upvotedProjects = await this.projects.getUpvoted(address);
+        res.status(200).send({ projects: upvotedProjects });
+      } else {
+        // User is not authenticated
+        res.status(404).send("User not found.");
       }
     } catch (e) {
       console.error(e);

@@ -32,8 +32,13 @@ export class UserRouter {
     );
 
     this._router.get(
-      "/upvotes",
+      "/me/upvotes",
       passport.authenticate("jwt", { session: false }),
+      this.userController.getUpvotes
+    )
+
+    this._router.get(
+      "/:address/upvotes",
       this.userController.getUpvotes
     )
   }
