@@ -35,9 +35,15 @@ export class ProjectsRouter {
 
     /**
      * @swagger
-     * /api/projects/id:
+     * /api/projects/{id}:
      *   get:
      *     description: Gets a project
+     *     parameters:
+     *      - in: path
+     *        name: id
+     *        type: string
+     *        required: true
+     *        description: Numeric ID of the user to get.
      *     responses:
      *       200:
      *         description: Success

@@ -32,8 +32,13 @@ const swaggerOptions = {
             description: "TF API Docs",
             servers: ["http://localhost:3000"],
         },
+        servers: [
+            {
+              url: 'http://localhost:3000',
+            },
+          ],
     },
-    apis: ["./src/routers/projects.router.ts"],
+    apis: ["./src/routers/*.ts"],
 };
 
 const swagger = swaggerJSDoc(swaggerOptions);
