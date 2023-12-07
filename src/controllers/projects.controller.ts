@@ -43,7 +43,6 @@ export class ProejctController {
       const projectId = await this.projects.create(project);
       return res.status(201).send({ projectId });
     } catch (err) {
-      console.log((err as any).message);
       return res
         .status(500)
         .send({ error: (err as any).message });
@@ -57,7 +56,6 @@ export class ProejctController {
     try {
       const address = req.user.address;
       const projectId = req.params.id;
-      console.log('projectId', projectId);
       const user = await User.findOne({ address: address });
       if (user) {
         const upvoteId = await this.projects.upvoteProject(address, projectId);

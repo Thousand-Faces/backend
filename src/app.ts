@@ -73,18 +73,20 @@ export class App {
         this._app.use(cookieParser());
 
         let allowedOrigins = [/\.forestadmin\.com$/, /localhost:\d{4}$/, process.env.FRONT_URL];
+        console.log(process.env.CORS_ORIGINS)
         if (process.env.CORS_ORIGINS) {
             allowedOrigins = allowedOrigins.concat(process.env.CORS_ORIGINS.split(','));
         }
-        const corsConfig = {
-            origin: allowedOrigins,
-            allowedHeaders: ['Forest-Context-Url', 'Authorization', 'X-Requested-With', 'Content-Type'],
-            methods: 'GET, POST, PUT, DELETE',
-            maxAge: 86400, // NOTICE: 1 day
-            credentials: true,
-        };
+        console.log(allowedOrigins)
+        // const corsConfig = {
+        //     origin: allowedOrigins,
+        //     allowedHeaders: ['Forest-Context-Url', 'Authorization', 'X-Requested-With', 'Content-Type'],
+        //     methods: 'GET, POST, PUT, DELETE',
+        //     maxAge: 86400, // NOTICE: 1 day
+        //     credentials: true,
+        // };
 
-        this._app.use(cors(corsConfig));
+        this._app.use(cors());
         // this._app.use(limiter);
         // this._app.use(speedLimiter);
 
