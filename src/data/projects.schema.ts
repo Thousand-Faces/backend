@@ -11,11 +11,10 @@ export const projectSchema = new Schema<IProject>({
     website: { type: String, required: true },
     pitchSentence: { type: String, required: true },
     yearFound: { type: String, required: true },
-    problemSolving: { type: String, required: true },
+    problem: { type: String, required: true },
     solution: { type: String, required: true },
     businessModel: { type: String, required: true },
     impactCategory: { type: String, required: true },
-    businessImpact: { type: String, required: true },
     marketPotential: { type: String, required: true },
     differentiation: { type: String, required: true },
     teamRepresentation: { type: Schema.Types.Mixed, required: true },
@@ -25,10 +24,12 @@ export const projectSchema = new Schema<IProject>({
     programApplicationReason: { type: String, required: true },
     milestone: { type: String, required: true },
     challenge: { type: String, required: true },
-    referral: { type: String, required: true },
-    logo: { type: String, required: true },
+    logo: { type: String, required: false },
     pitchDeck: { type: String, required: true },
     additionalInfo: { type: String, required: false },
+    isRaising: { type: Boolean },
+    teamReason: { type: String, required: true },
+    source: { type: String, required: true },
 
 });
 

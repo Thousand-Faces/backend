@@ -1,7 +1,6 @@
 import { injectable } from "inversify";
 import { Project, Upvote, User } from "../data";
-import { IProject, IUpvote } from "../models";
-import mongoose from "mongoose";
+import { IProject } from "../models";
 
 @injectable()
 export class ProjectService {
@@ -17,11 +16,9 @@ export class ProjectService {
         model.website = project.website;
         model.pitchSentence = project.pitchSentence;
         model.yearFound = project.yearFound;
-        model.problemSolving = project.problemSolving;
         model.solution = project.solution;
         model.businessModel = project.businessModel;
         model.impactCategory = project.impactCategory;
-        model.businessImpact = project.businessImpact;
         model.marketPotential = project.marketPotential;
         model.differentiation = project.differentiation;
         model.teamRepresentation = project.teamRepresentation;
@@ -31,10 +28,12 @@ export class ProjectService {
         model.programApplicationReason = project.programApplicationReason;
         model.milestone = project.milestone;
         model.challenge = project.challenge;
-        model.referral = project.referral;
         model.logo = project.logo;
         model.pitchDeck = project.pitchDeck;
         model.additionalInfo = project.additionalInfo;
+        model.isRaising = project.isRaising;
+        model.teamReason = project.teamReason;
+        model.source = project.source;
 
         await model.save();
         return model.id;

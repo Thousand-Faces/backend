@@ -9,11 +9,10 @@ export interface IProject {
     website: string;
     pitchSentence: string;
     yearFound: string;
-    problemSolving: string;
+    problem: string;
     solution: string;
     businessModel: string;
     impactCategory: string;
-    businessImpact: string;
     marketPotential: string;
     differentiation: string;
     teamRepresentation: string[];
@@ -23,8 +22,12 @@ export interface IProject {
     programApplicationReason: string;
     milestone: string;
     challenge: string;
-    referral: string;
     logo: string;
     pitchDeck: string;
+    demo: string;
+    kpi: string;
     additionalInfo: string;
+    isRaising: boolean;
+    teamReason: string;
+    source: string;
 }
