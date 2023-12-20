@@ -16,7 +16,7 @@ export interface IProject {
     marketPotential: string;
     differentiation: string;
     teamRepresentation: string[];
-    videoLink: string;
+    teamVideo: string;
     fundingStage: string;
     raisingAmount: number;
     programApplicationReason: string;

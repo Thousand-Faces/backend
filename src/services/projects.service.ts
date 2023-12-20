@@ -22,7 +22,7 @@ export class ProjectService {
         model.marketPotential = project.marketPotential;
         model.differentiation = project.differentiation;
         model.teamRepresentation = project.teamRepresentation;
-        model.videoLink = project.videoLink;
+        model.teamVideo = project.teamVideo;
         model.fundingStage = project.fundingStage;
         model.raisingAmount = project.raisingAmount;
         model.programApplicationReason = project.programApplicationReason;

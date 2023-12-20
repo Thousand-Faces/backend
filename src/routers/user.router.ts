@@ -68,7 +68,7 @@ export class UserRouter {
      *       500:
      *         description: Something went wrong, please try again later.
      */
-    this._router.post("/getToken", this.userController.getToken);
+    this._router.post("/token", this.userController.getToken);
 
 
     /**
@@ -103,30 +103,7 @@ export class UserRouter {
     this._router.get(
       "/me/upvotes",
       passport.authenticate("jwt", { session: false }),
-      this.userController.getUpvotes
-    )
-
-
-    /**
-     * @swagger
-     * /api/user/{address}/upvotes:
-     *   get:
-     *     description: Gets upvotes of user by address
-     *     parameters:
-     *      - in: path
-     *        name: address
-     *        type: string
-     *        required: true
-     *        description: The address of the user
-     *     responses:
-     *       200:
-     *         description: Success
-     *       500:
-     *         description: Something went wrong, please try again later.
-     */
-    this._router.get(
-      "/:address/upvotes",
-      this.userController.getUpvotes
+      this.userController.getCurrentUserUpvotes
     )
   }
 

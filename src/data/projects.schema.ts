@@ -18,7 +18,7 @@ export const projectSchema = new Schema<IProject>({
     marketPotential: { type: String, required: true },
     differentiation: { type: String, required: true },
     teamRepresentation: { type: Schema.Types.Mixed, required: true },
-    videoLink: { type: String, required: true },
+    teamVideo: { type: String, required: false },
     fundingStage: { type: String, required: true },
     raisingAmount: { type: Number, required: true },
     programApplicationReason: { type: String, required: true },
@@ -30,6 +30,8 @@ export const projectSchema = new Schema<IProject>({
     isRaising: { type: Boolean },
     teamReason: { type: String, required: true },
     source: { type: String, required: true },
+    kpi: { type: String, required: true },
+    demo: { type: String, required: false }
 
 });
 
