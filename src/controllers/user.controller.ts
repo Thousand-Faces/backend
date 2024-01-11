@@ -121,4 +121,26 @@ export class UserController {
       res.status(500).send("Something went wrong");
     }
   };
+
+
+  // Process signed message
+  public register = async (req: any, res: any) => {
+    const email = req.body.email;
+    const address = req.user.address;
+    try {
+      const user = await User.findOne({ address: address });
+      if (user) {
+          // Change user nonce
+          user.email = email;
+          await user.save();
+          res.status(200).json(user);
+        } else {
+          // User is not authenticated
+          res.status(401).send("Invalid credentials");
+        }
+    } catch (e) {
+      console.error(e);
+      res.status(500).send("Something went wrong");
+    }
+  };
 }

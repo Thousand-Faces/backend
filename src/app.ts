@@ -73,11 +73,9 @@ export class App {
         this._app.use(cookieParser());
 
         let allowedOrigins = [/\.forestadmin\.com$/, /localhost:\d{4}$/, process.env.FRONT_URL];
-        console.log(process.env.CORS_ORIGINS)
         if (process.env.CORS_ORIGINS) {
             allowedOrigins = allowedOrigins.concat(process.env.CORS_ORIGINS.split(','));
         }
-        console.log(allowedOrigins)
         // const corsConfig = {
         //     origin: allowedOrigins,
         //     allowedHeaders: ['Forest-Context-Url', 'Authorization', 'X-Requested-With', 'Content-Type'],

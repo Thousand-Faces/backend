@@ -105,6 +105,36 @@ export class UserRouter {
       passport.authenticate("jwt", { session: false }),
       this.userController.getCurrentUserUpvotes
     )
+
+
+    /**
+     * @swagger
+     * /api/user/register:
+     *   post:
+     *     description: Creates or edits new user address <-> email 
+     *     consumes:
+     *      - application/json
+     *     parameters:
+     *      - in: body
+     *        name: authData
+     *        schema:
+     *          type: object
+     *          required:
+     *            - email
+     *            - address
+     *          properties:
+     *            email: 
+     *              type: string
+     *            address: 
+     *              type: string
+     *     responses:
+     *       200:
+     *         description: Success
+     *       500:
+     *         description: Something went wrong, please try again later.
+     */
+    this._router.post("/data", this.userController.register);
+
   }
 
   public get router(): Router {
