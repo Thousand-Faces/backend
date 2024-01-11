@@ -133,7 +133,9 @@ export class UserRouter {
      *       500:
      *         description: Something went wrong, please try again later.
      */
-    this._router.post("/register", this.userController.register);
+    this._router.post("/register", 
+    passport.authenticate("jwt", { session: false }),
+    this.userController.register);
 
   }
 
