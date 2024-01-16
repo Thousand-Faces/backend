@@ -127,7 +127,7 @@ export class UserController {
   public register = async (req: any, res: any) => {
     try {
 
-      const email = req.body.email;
+      const email = req.body.emailAddress;
       const address = req.user.address;
       const user = await User.findOne({ address: address });
       if (user) {
