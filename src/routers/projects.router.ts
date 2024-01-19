@@ -33,6 +33,20 @@ export class ProjectsRouter {
      */
     this._router.get("/", this.projectController.getAll);
 
+
+    /**
+     * @swagger
+     * /api/projects/upvotes:
+     *   get:
+     *     description: Gets all projects
+     *     responses:
+     *       200:
+     *         description: Success
+     *       500:
+     *         description: Something went wrong, please try again later.
+     */
+    this._router.get("/upvotes", this.projectController.getAllWithUpvotes);
+
     /**
      * @swagger
      * /api/projects/{id}:

@@ -37,6 +37,18 @@ export class ProejctController {
   };
 
 
+  public getAllWithUpvotes = async (req: any, res: Response) => {
+    try {
+      const projects = await this.projects.getProjectsWithUpvotes();
+      return res.status(200).send({ projects });
+    } catch (err) {
+      return res
+        .status(500)
+        .send({ error: "Something went wrong, please try again later." });
+    }
+  };
+
+
   public post = async (req: any, res: Response) => {
     try {
       const project = req.body;

@@ -59,6 +59,19 @@ export class ProjectService {
         const projects = await Project.find({ '_id': { $in: projectIds } });
         return projects;
     }
+    public async getProjectsWithUpvotes(): Promise<any[]> {
+        const projects = await Project.find({});
+        const allUpvotes = await Upvote.find({});
+
+        const projectsWithUpvotes = projects.map((p) => {
+            const upvotesForProject = allUpvotes.filter(u => u.upvotedProjectId === p.id);
+            return { ...p.toObject(), upvotes: upvotesForProject.length };
+        });
+
+        const sortedProjects = projectsWithUpvotes.sort((a, b) => b.upvotes - a.upvotes);
+
+        return sortedProjects;
+    }
 
     public async upvoteProject(address: string, projectId: string): Promise<string> {
         const user = await User.findOne({ address: address });
